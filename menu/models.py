@@ -1,6 +1,9 @@
+# encoding: utf-8
+from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.core.cache import cache
+
 
 class Menu(models.Model):
     name = models.CharField(
@@ -29,6 +32,7 @@ class Menu(models.Model):
         default=True,
         help_text=_(u'Disable or enable menu')
         )
+
     class Meta:
         verbose_name = _(u'menu')
         verbose_name_plural = _(u'menus')
@@ -54,8 +58,6 @@ class Menu(models.Model):
             item.order = current
             item.save()
             current += 10
-
-
 
 
 class MenuItem(models.Model):
@@ -105,6 +107,8 @@ class MenuItem(models.Model):
         )
 
     submenu = models.ForeignKey(Menu, related_name='submenu', verbose_name=_(u'Submenu'), null=True, blank=True)
+
+    rel = models.CharField(max_length=200, null=True, blank=True, verbose_name=u'Значение внутри rel')
 
     @property
     def svg(self):

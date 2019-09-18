@@ -34,7 +34,8 @@ def load_menu(current_path, i, menu, user):
     show_auth = i.login_required and user.is_authenticated() and user.is_staff
     
     if i.enabled and ((not (i.login_required or i.anonymous_only)) or (i.login_required and show_auth) or (i.anonymous_only and show_anonymous)):
-        menuitem = {'url': i.link_url, 'title': i.title, 'current': current, 'image': i.image, 'svg': i.extra, 'extra': i.extra, 'submenu': [], 'target': i.target}
+        menuitem = {'url': i.link_url, 'title': i.title, 'current': current, 'image': i.image, 'svg': i.extra,
+                    'extra': i.extra, 'submenu': [], 'target': i.target, 'rel': i.rel}
         if i.submenu and not i.menu == i.submenu:
             for j in MenuItem.objects.filter(menu=i.submenu).order_by('order'):
                 inner = load_menu(current_path, j, i.submenu, user)
